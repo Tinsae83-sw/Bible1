@@ -1,3 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:holy_bible/models/bible_book.dart';
+import 'package:holy_bible/screens/chapter_selection_screen.dart';
+import 'package:holy_bible/services/bible_service.dart';
+
 class BookSelectionScreen extends StatefulWidget {
   @override
   _BookSelectionScreenState createState() => _BookSelectionScreenState();
@@ -62,6 +67,7 @@ class _BookSelectionScreenState extends State<BookSelectionScreen> {
         final book = books[index];
         return ListTile(
           title: Text(book.name),
+          subtitle: Text(book.amharicName),
           trailing: Text("${book.chapters} ch"),
           onTap: () {
             Navigator.push(

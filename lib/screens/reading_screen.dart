@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import '../services/bible_service.dart';
 import '../services/database_service.dart';
+import '../services/settings_service.dart';
 import '../models/bible_book.dart';
 import '../models/bible_chapter.dart';
 import '../widgets/bible_verse_tile.dart';
@@ -20,6 +21,7 @@ class ReadingScreen extends StatefulWidget {
 class _ReadingScreenState extends State<ReadingScreen> {
   final BibleService _bibleService = BibleService();
   final DatabaseService _databaseService = DatabaseService();
+  final SettingsService _settingsService = SettingsService();
   BibleChapter? _chapter;
   bool _isLoading = true;
 
@@ -105,12 +107,26 @@ class _ReadingScreenState extends State<ReadingScreen> {
           ? const Center(child: CircularProgressIndicator())
           : _chapter == null
               ? const Center(child: Text('Chapter not found'))
-              : ListView.builder(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: _chapter!.verses.length,
-                  itemBuilder: (context, index) {
-                    final verse = _chapter!.verses[index];
-                    return BibleVerseTile(verse: verse);
+              : ValueListenableBuilder<String>(
+                  valueListenable: _settingsService.fontFamilyNotifier,
+                  builder: (context, fontFamily, child) {
+                    return ValueListenableBuilder<double>(
+                      valueListenable: _settingsService.fontSizeNotifier,
+                      builder: (context, fontSize, child) {
+                        return ListView.builder(
+                          padding: const EdgeInsets.all(16),
+                          itemCount: _chapter!.verses.length,
+                          itemBuilder: (context, index) {
+                            final verse = _chapter!.verses[index];
+                            return BibleVerseTile(
+                              verse: verse,
+                              fontFamily: fontFamily,
+                              fontSize: fontSize,
+                            );
+                          },
+                        );
+                      },
+                    );
                   },
                 ),
     );

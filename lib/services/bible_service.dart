@@ -1,10 +1,11 @@
+// services/bible_service.dart
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import '../models/bible_book.dart';
-import '../models/bible_chapter.dart';
-import '../models/bible_verse.dart';
+import 'package:holy_bible/models/bible_book.dart';
+import 'package:holy_bible/models/bible_chapter.dart';
+import 'package:holy_bible/models/bible_verse.dart';
 
 class BibleService {
   static final BibleService _instance = BibleService._internal();
@@ -116,26 +117,29 @@ class BibleService {
       // Fallback to sample data if JSON loading fails
       _books = [
         BibleBook(
-            id: 1,
-            name: "Genesis",
-            amharicName: "ኦሪት ዘፍጥረት",
-            testament: "Old",
-            chapters: 50,
-            abbreviation: "Gen"),
+          id: 1,
+          name: "Genesis",
+          amharicName: "ኦሪት ዘፍጥረት",
+          testament: "Old",
+          chapters: 50,
+          abbreviation: "Gen",
+        ),
         BibleBook(
-            id: 2,
-            name: "Exodus",
-            amharicName: "ኦሪት ዘጸአት",
-            testament: "Old",
-            chapters: 40,
-            abbreviation: "Exo"),
+          id: 2,
+          name: "Exodus",
+          amharicName: "ኦሪት ዘጸአት",
+          testament: "Old",
+          chapters: 40,
+          abbreviation: "Exo",
+        ),
         BibleBook(
-            id: 40,
-            name: "Matthew",
-            amharicName: "የማቴዎስ ወንጌል",
-            testament: "New",
-            chapters: 28,
-            abbreviation: "Mat"),
+          id: 40,
+          name: "Matthew",
+          amharicName: "የማቴዎስ ወንጌል",
+          testament: "New",
+          chapters: 28,
+          abbreviation: "Mat",
+        ),
       ];
       return _books!;
     }
@@ -173,29 +177,44 @@ class BibleService {
 
       final Map<String, dynamic> jsonData = json.decode(jsonString);
 
-      // Check if the JSON has the expected structure
-      if (!jsonData.containsKey('chapters')) {
-        print('JSON does not contain chapters key');
+      // Get the book data from the JSON (e.g., "exodus")
+      final String bookKey = fileName.toLowerCase();
+      if (!jsonData.containsKey(bookKey)) {
+        print('JSON does not contain key: $bookKey');
         return _getSampleChapter(bookId, chapterNumber, book.name);
       }
 
-      final Map<String, dynamic> chapters = jsonData['chapters'];
-      final dynamic chapterData = chapters[chapterNumber.toString()];
+      final Map<String, dynamic> bookData = jsonData[bookKey];
+      final String chapterKey = 'Chapter $chapterNumber';
 
-      if (chapterData == null || chapterData is! List) {
-        print('Chapter $chapterNumber not found or invalid format');
+      if (!bookData.containsKey(chapterKey)) {
+        print('Chapter $chapterNumber not found in book $bookKey');
         return _getSampleChapter(bookId, chapterNumber, book.name);
       }
 
-      List<BibleVerse> verses = chapterData.map<BibleVerse>((verseJson) {
-        return BibleVerse(
-          bookId: bookId,
-          bookName: book.name,
-          chapterNumber: chapterNumber,
-          verseNumber: verseJson['verseNumber'],
-          text: verseJson['text'],
-        );
-      }).toList();
+      final Map<String, dynamic> versesMap = bookData[chapterKey];
+
+      // Convert the verses map to a list of BibleVerse objects
+      List<BibleVerse> verses = [];
+      versesMap.forEach((verseNum, verseText) {
+        int verseNumber = int.tryParse(verseNum) ?? 0;
+        if (verseNumber > 0) {
+          verses.add(BibleVerse(
+            bookId: bookId,
+            bookName: book.name,
+            chapterNumber: chapterNumber,
+            verseNumber: verseNumber,
+            text: verseText.toString(),
+            amharicText: verseText.toString(), // Using same text for now
+            isBookmarked: false,
+            isHighlighted: false,
+            highlightColor: null,
+          ));
+        }
+      });
+
+      // Sort verses by verse number
+      verses.sort((a, b) => a.verseNumber.compareTo(b.verseNumber));
 
       return BibleChapter(
         bookId: bookId,
@@ -220,7 +239,11 @@ class BibleService {
         chapterNumber: chapterNumber,
         verseNumber: i,
         text:
-            "ይህ የ$chapterNumber ምዕራፍ $i ነጥብ ነው። በእውነተኛ መጽሐፍ ቅዱስ ውስጥ ይህ ትክክለኛ የመጽሐፍ ቅዱስ ጥቅስ ይሆናል።",
+            "This is a sample verse $i from $bookName chapter $chapterNumber.",
+        amharicText: "ይህ የ$chapterNumber ምዕራፍ $i ነጥብ ነው።",
+        isBookmarked: false,
+        isHighlighted: false,
+        highlightColor: null,
       ));
     }
 

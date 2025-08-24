@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:holy_bible/models/bible_book.dart';
+import 'package:holy_bible/screens/reading_screen.dart';
+
 class ChapterSelectionScreen extends StatelessWidget {
   final BibleBook book;
 
@@ -19,8 +23,15 @@ class ChapterSelectionScreen extends StatelessWidget {
           final chapter = index + 1;
           return InkWell(
             onTap: () {
-              // TODO: Open chapter reading screen
-              print("Open ${book.name} $chapter");
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ReadingScreen(
+                    book: book,
+                    chapterNumber: chapter,
+                  ),
+                ),
+              );
             },
             child: Container(
               decoration: BoxDecoration(

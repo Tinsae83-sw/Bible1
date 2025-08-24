@@ -1,20 +1,16 @@
-// In widgets/navigation_drawer.dart
 import 'package:flutter/material.dart';
 import '../services/bible_service.dart';
 import '../models/bible_book.dart';
 import '../screens/reading_screen.dart';
 
 class BibleNavigationDrawer extends StatefulWidget {
-  // Renamed
   const BibleNavigationDrawer({super.key});
 
   @override
-  State<BibleNavigationDrawer> createState() =>
-      _BibleNavigationDrawerState(); // Updated
+  State<BibleNavigationDrawer> createState() => _BibleNavigationDrawerState();
 }
 
 class _BibleNavigationDrawerState extends State<BibleNavigationDrawer> {
-  // Updated
   final BibleService _bibleService = BibleService();
   List<BibleBook>? _books;
   List<BibleBook>? _oldTestamentBooks;
@@ -44,14 +40,13 @@ class _BibleNavigationDrawerState extends State<BibleNavigationDrawer> {
     return Drawer(
       child: Column(
         children: [
-          // Image header that covers the full container
           Container(
             height: 200,
             decoration: BoxDecoration(
               color: Colors.blue[700],
             ),
             child: Image.asset(
-              'assets/images/devid_star.png',
+              'assets/images/devid1.jpeg',
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,

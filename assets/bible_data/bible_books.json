@@ -1,0 +1,532 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "name": "ኦሪት ዘፍጥረት",
+      "amharicName": "ኦሪት ዘፍጥረት",
+      "testament": "Old",
+      "chapters": 50,
+      "abbreviation": "Gen"
+    },
+    {
+      "id": 2,
+      "name": "ኦሪት ዘጸአት",
+      "amharicName": "ኦሪት ዘጸአት",
+      "testament": "Old",
+      "chapters": 40,
+      "abbreviation": "Exo"
+    },
+    {
+      "id": 3,
+      "name": "ኦሪት ዘሌዋውያን",
+      "amharicName": "ኦሪት ዘሌዋውያን",
+      "testament": "Old",
+      "chapters": 27,
+      "abbreviation": "Lev"
+    },
+    {
+      "id": 4,
+      "name": "ኦሪት ዘኍልቍ",
+      "amharicName": "ኦሪት ዘኍልቍ",
+      "testament": "Old",
+      "chapters": 36,
+      "abbreviation": "Num"
+    },
+    {
+      "id": 5,
+      "name": "ኦሪት ዘዳግም",
+      "amharicName": "ኦሪት ዘዳግም",
+      "testament": "Old",
+      "chapters": 34,
+      "abbreviation": "Deu"
+    },
+    {
+      "id": 6,
+      "name": "Joshua",
+      "amharicName": "ኢያሱ",
+      "testament": "Old",
+      "chapters": 24,
+      "abbreviation": "Jos"
+    },
+    {
+      "id": 7,
+      "name": "Judges",
+      "amharicName": "ፈራጅ",
+      "testament": "Old",
+      "chapters": 21,
+      "abbreviation": "Jdg"
+    },
+    {
+      "id": 8,
+      "name": "Ruth",
+      "amharicName": "ሩት",
+      "testament": "Old",
+      "chapters": 4,
+      "abbreviation": "Rut"
+    },
+    {
+      "id": 9,
+      "name": "1 Samuel",
+      "amharicName": "1 ሳሙኤል",
+      "testament": "Old",
+      "chapters": 31,
+      "abbreviation": "1Sa"
+    },
+    {
+      "id": 10,
+      "name": "2 Samuel",
+      "amharicName": "2 ሳሙኤል",
+      "testament": "Old",
+      "chapters": 24,
+      "abbreviation": "2Sa"
+    },
+    {
+      "id": 11,
+      "name": "1 Kings",
+      "amharicName": "1 ነገሥት",
+      "testament": "Old",
+      "chapters": 22,
+      "abbreviation": "1Ki"
+    },
+    {
+      "id": 12,
+      "name": "2 Kings",
+      "amharicName": "2 ነገሥት",
+      "testament": "Old",
+      "chapters": 25,
+      "abbreviation": "2Ki"
+    },
+    {
+      "id": 13,
+      "name": "1 Chronicles",
+      "amharicName": "1 ዜና መዋዕል",
+      "testament": "Old",
+      "chapters": 29,
+      "abbreviation": "1Ch"
+    },
+    {
+      "id": 14,
+      "name": "2 Chronicles",
+      "amharicName": "2 ዜና መዋዕል",
+      "testament": "Old",
+      "chapters": 36,
+      "abbreviation": "2Ch"
+    },
+    {
+      "id": 15,
+      "name": "Ezra",
+      "amharicName": "አዝራ",
+      "testament": "Old",
+      "chapters": 10,
+      "abbreviation": "Ezr"
+    },
+    {
+      "id": 16,
+      "name": "Nehemiah",
+      "amharicName": "ነህምያ",
+      "testament": "Old",
+      "chapters": 13,
+      "abbreviation": "Neh"
+    },
+    {
+      "id": 17,
+      "name": "Esther",
+      "amharicName": "አስቴር",
+      "testament": "Old",
+      "chapters": 10,
+      "abbreviation": "Est"
+    },
+    {
+      "id": 18,
+      "name": "Job",
+      "amharicName": "ኢዮብ",
+      "testament": "Old",
+      "chapters": 42,
+      "abbreviation": "Job"
+    },
+    {
+      "id": 19,
+      "name": "Psalms",
+      "amharicName": "መዝሙር",
+      "testament": "Old",
+      "chapters": 150,
+      "abbreviation": "Psa"
+    },
+    {
+      "id": 20,
+      "name": "Proverbs",
+      "amharicName": "ምሳሌ",
+      "testament": "Old",
+      "chapters": 31,
+      "abbreviation": "Pro"
+    },
+    {
+      "id": 21,
+      "name": "Ecclesiastes",
+      "amharicName": "መክብብ",
+      "testament": "Old",
+      "chapters": 12,
+      "abbreviation": "Ecc"
+    },
+    {
+      "id": 22,
+      "name": "Song of Solomon",
+      "amharicName": "ግጥም ሰሎሞን",
+      "testament": "Old",
+      "chapters": 8,
+      "abbreviation": "Son"
+    },
+    {
+      "id": 23,
+      "name": "Isaiah",
+      "amharicName": "ኢሳይያስ",
+      "testament": "Old",
+      "chapters": 66,
+      "abbreviation": "Isa"
+    },
+    {
+      "id": 24,
+      "name": "Jeremiah",
+      "amharicName": "ኤርምያስ",
+      "testament": "Old",
+      "chapters": 52,
+      "abbreviation": "Jer"
+    },
+    {
+      "id": 25,
+      "name": "Lamentations",
+      "amharicName": "ጥምቀት",
+      "testament": "Old",
+      "chapters": 5,
+      "abbreviation": "Lam"
+    },
+    {
+      "id": 26,
+      "name": "Ezekiel",
+      "amharicName": "ሕዝቅኤል",
+      "testament": "Old",
+      "chapters": 48,
+      "abbreviation": "Eze"
+    },
+    {
+      "id": 27,
+      "name": "Daniel",
+      "amharicName": "ዳንኤል",
+      "testament": "Old",
+      "chapters": 12,
+      "abbreviation": "Dan"
+    },
+    {
+      "id": 28,
+      "name": "Hosea",
+      "amharicName": "ሆሴዕ",
+      "testament": "Old",
+      "chapters": 14,
+      "abbreviation": "Hos"
+    },
+    {
+      "id": 29,
+      "name": "Joel",
+      "amharicName": "ዮኤል",
+      "testament": "Old",
+      "chapters": 3,
+      "abbreviation": "Joe"
+    },
+    {
+      "id": 30,
+      "name": "Amos",
+      "amharicName": "አሞጽ",
+      "testament": "Old",
+      "chapters": 9,
+      "abbreviation": "Amo"
+    },
+    {
+      "id": 31,
+      "name": "Obadiah",
+      "amharicName": "ዕብዲዮስ",
+      "testament": "Old",
+      "chapters": 1,
+      "abbreviation": "Oba"
+    },
+    {
+      "id": 32,
+      "name": "Jonah",
+      "amharicName": "ዮናስ",
+      "testament": "Old",
+      "chapters": 4,
+      "abbreviation": "Jon"
+    },
+    {
+      "id": 33,
+      "name": "Micah",
+      "amharicName": "ሚክያስ",
+      "testament": "Old",
+      "chapters": 7,
+      "abbreviation": "Mic"
+    },
+    {
+      "id": 34,
+      "name": "Nahum",
+      "amharicName": "ናሆም",
+      "testament": "Old",
+      "chapters": 3,
+      "abbreviation": "Nah"
+    },
+    {
+      "id": 35,
+      "name": "Habakkuk",
+      "amharicName": "አብቁም",
+      "testament": "Old",
+      "chapters": 3,
+      "abbreviation": "Hab"
+    },
+    {
+      "id": 36,
+      "name": "Zephaniah",
+      "amharicName": "ሶፎንያስ",
+      "testament": "Old",
+      "chapters": 3,
+      "abbreviation": "Zep"
+    },
+    {
+      "id": 37,
+      "name": "Haggai",
+      "amharicName": "ሐጌ",
+      "testament": "Old",
+      "chapters": 2,
+      "abbreviation": "Hag"
+    },
+    {
+      "id": 38,
+      "name": "Zechariah",
+      "amharicName": "ዘካርያስ",
+      "testament": "Old",
+      "chapters": 14,
+      "abbreviation": "Zec"
+    },
+    {
+      "id": 39,
+      "name": "Malachi",
+      "amharicName": "ሚልክያስ",
+      "testament": "Old",
+      "chapters": 4,
+      "abbreviation": "Mal"
+    },
+    {
+      "id": 40,
+      "name": "Matthew",
+      "amharicName": "የማቴዎስ ወንጌል",
+      "testament": "New",
+      "chapters": 28,
+      "abbreviation": "Mat"
+    },
+    {
+      "id": 41,
+      "name": "Mark",
+      "amharicName": "የማርቆስ ወንጌል",
+      "testament": "New",
+      "chapters": 16,
+      "abbreviation": "Mar"
+    },
+    {
+      "id": 42,
+      "name": "Luke",
+      "amharicName": "የሉቃስ ወንጌል",
+      "testament": "New",
+      "chapters": 24,
+      "abbreviation": "Luk"
+    },
+    {
+      "id": 43,
+      "name": "John",
+      "amharicName": "የዮሐንስ ወንጌል",
+      "testament": "New",
+      "chapters": 21,
+      "abbreviation": "Jhn"
+    },
+    {
+      "id": 44,
+      "name": "Acts",
+      "amharicName": "የሐዋርያት ሥራ",
+      "testament": "New",
+      "chapters": 28,
+      "abbreviation": "Act"
+    },
+    {
+      "id": 45,
+      "name": "Romans",
+      "amharicName": "ሮሜ",
+      "testament": "New",
+      "chapters": 16,
+      "abbreviation": "Rom"
+    },
+    {
+      "id": 46,
+      "name": "1 Corinthians",
+      "amharicName": "1 ቆሮንቶስ",
+      "testament": "New",
+      "chapters": 16,
+      "abbreviation": "1Co"
+    },
+    {
+      "id": 47,
+      "name": "2 Corinthians",
+      "amharicName": "2 ቆሮንቶስ",
+      "testament": "New",
+      "chapters": 13,
+      "abbreviation": "2Co"
+    },
+    {
+      "id": 48,
+      "name": "Galatians",
+      "amharicName": "ገላትያ",
+      "testament": "New",
+      "chapters": 6,
+      "abbreviation": "Gal"
+    },
+    {
+      "id": 49,
+      "name": "Ephesians",
+      "amharicName": "ኤፌሶን",
+      "testament": "New",
+      "chapters": 6,
+      "abbreviation": "Eph"
+    },
+    {
+      "id": 50,
+      "name": "Philippians",
+      "amharicName": "ፊልጵስዩስ",
+      "testament": "New",
+      "chapters": 4,
+      "abbreviation": "Phi"
+    },
+    {
+      "id": 51,
+      "name": "Colossians",
+      "amharicName": "ቈላስዩስ",
+      "testament": "New",
+      "chapters": 4,
+      "abbreviation": "Col"
+    },
+    {
+      "id": 52,
+      "name": "1 Thessalonians",
+      "amharicName": "1 ሰሎንቄ",
+      "testament": "New",
+      "chapters": 5,
+      "abbreviation": "1Th"
+    },
+    {
+      "id": 53,
+      "name": "2 Thessalonians",
+      "amharicName": "2 ሰሎንቄ",
+      "testament": "New",
+      "chapters": 3,
+      "abbreviation": "2Th"
+    },
+    {
+      "id": 54,
+      "name": "1 Timothy",
+      "amharicName": "1 ጢሞቴዎስ",
+      "testament": "New",
+      "chapters": 6,
+      "abbreviation": "1Ti"
+    },
+    {
+      "id": 55,
+      "name": "2 Timothy",
+      "amharicName": "2 ጢሞቴዎስ",
+      "testament": "New",
+      "chapters": 4,
+      "abbreviation": "2Ti"
+    },
+    {
+      "id": 56,
+      "name": "Titus",
+      "amharicName": "ቲቶ",
+      "testament": "New",
+      "chapters": 3,
+      "abbreviation": "Tit"
+    },
+    {
+      "id": 57,
+      "name": "Philemon",
+      "amharicName": "ፊልሞን",
+      "testament": "New",
+      "chapters": 1,
+      "abbreviation": "Phm"
+    },
+    {
+      "id": 58,
+      "name": "Hebrews",
+      "amharicName": "ዕብራውያን",
+      "testament": "New",
+      "chapters": 13,
+      "abbreviation": "Heb"
+    },
+    {
+      "id": 59,
+      "name": "James",
+      "amharicName": "ያዕቆብ",
+      "testament": "New",
+      "chapters": 5,
+      "abbreviation": "Jam"
+    },
+    {
+      "id": 60,
+      "name": "1 Peter",
+      "amharicName": "1 ጴጥሮስ",
+      "testament": "New",
+      "chapters": 5,
+      "abbreviation": "1Pe"
+    },
+    {
+      "id": 61,
+      "name": "2 Peter",
+      "amharicName": "2 ጴጥሮስ",
+      "testament": "New",
+      "chapters": 3,
+      "abbreviation": "2Pe"
+    },
+    {
+      "id": 62,
+      "name": "1 John",
+      "amharicName": "1 ዮሐንስ",
+      "testament": "New",
+      "chapters": 5,
+      "abbreviation": "1Jo"
+    },
+    {
+      "id": 63,
+      "name": "2 John",
+      "amharicName": "2 ዮሐንስ",
+      "testament": "New",
+      "chapters": 1,
+      "abbreviation": "2Jo"
+    },
+    {
+      "id": 64,
+      "name": "3 John",
+      "amharicName": "3 ዮሐንስ",
+      "testament": "New",
+      "chapters": 1,
+      "abbreviation": "3Jo"
+    },
+    {
+      "id": 65,
+      "name": "Jude",
+      "amharicName": "ይሁዳ",
+      "testament": "New",
+      "chapters": 1,
+      "abbreviation": "Jud"
+    },
+    {
+      "id": 66,
+      "name": "Revelation",
+      "amharicName": "የዮሐንስ ራእይ",
+      "testament": "New",
+      "chapters": 22,
+      "abbreviation": "Rev"
+    }
+  ]
+}

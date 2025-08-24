@@ -5,181 +5,191 @@ import '../models/bible_verse.dart';
 class BibleVerseTile extends StatelessWidget {
   final BibleVerse verse;
   final String? highlightText;
-  final Function()? onBookmark;
-  final Function()? onHighlight;
-  final Function()? onShare;
+  final VoidCallback? onBookmark;
+  final VoidCallback? onHighlight;
+  final VoidCallback? onShare;
+  final String fontFamily;
+  final double fontSize;
 
-  const BibleVerseTile({
-    super.key,
+  BibleVerseTile({
     required this.verse,
     this.highlightText,
     this.onBookmark,
     this.onHighlight,
     this.onShare,
+    required this.fontFamily,
+    required this.fontSize,
   });
+
+  Color _getHighlightColor(String colorName) {
+    switch (colorName) {
+      case 'yellow':
+        return Colors.yellow.withOpacity(0.3);
+      case 'green':
+        return Colors.green.withOpacity(0.3);
+      case 'blue':
+        return Colors.blue.withOpacity(0.3);
+      case 'pink':
+        return Colors.pink.withOpacity(0.3);
+      case 'purple':
+        return Colors.purple.withOpacity(0.3);
+      default:
+        return Colors.yellow.withOpacity(0.3);
+    }
+  }
+
+  Color _getHighlightIconColor(String colorName) {
+    switch (colorName) {
+      case 'yellow':
+        return Colors.orange;
+      case 'green':
+        return Colors.green;
+      case 'blue':
+        return Colors.blue;
+      case 'pink':
+        return Colors.pink;
+      case 'purple':
+        return Colors.purple;
+      default:
+        return Colors.orange;
+    }
+  }
+
+  // Helper method to highlight text matches
+  TextSpan _buildHighlightedText(String text, String? query) {
+    if (query == null || query.isEmpty) {
+      return TextSpan(text: text);
+    }
+
+    final pattern = RegExp(query, caseSensitive: false);
+    final matches = pattern.allMatches(text);
+
+    if (matches.isEmpty) {
+      return TextSpan(text: text);
+    }
+
+    final List<TextSpan> spans = [];
+    int currentIndex = 0;
+
+    for (final match in matches) {
+      if (match.start > currentIndex) {
+        spans.add(TextSpan(
+          text: text.substring(currentIndex, match.start),
+        ));
+      }
+
+      spans.add(TextSpan(
+        text: text.substring(match.start, match.end),
+        style: TextStyle(
+          backgroundColor: Colors.yellow,
+          fontWeight: FontWeight.bold,
+        ),
+      ));
+
+      currentIndex = match.end;
+    }
+
+    if (currentIndex < text.length) {
+      spans.add(TextSpan(
+        text: text.substring(currentIndex),
+      ));
+    }
+
+    return TextSpan(children: spans);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-      elevation: 1.0,
-      color: verse.isHighlighted
-          ? _getHighlightColor(verse.highlightColor)
-          : Colors.white,
-      child: ListTile(
-        title: highlightText != null && highlightText!.isNotEmpty
-            ? _buildHighlightedText(verse.text, highlightText!)
-            : Text(
-                verse.text,
+    return Container(
+      decoration: BoxDecoration(
+        color: verse.isHighlighted
+            ? _getHighlightColor(verse.highlightColor ?? 'yellow')
+            : null,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                '${verse.bookName} ${verse.chapterNumber}:${verse.verseNumber}',
                 style: TextStyle(
-                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  fontFamily: fontFamily,
                   fontStyle:
                       verse.isHighlighted ? FontStyle.italic : FontStyle.normal,
                 ),
               ),
-        subtitle: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: Text(
-            '${verse.bookName} ${verse.chapterNumber}:${verse.verseNumber}',
-            style: TextStyle(
-              color: Colors.blue[700],
-              fontWeight: FontWeight.bold,
-              fontSize: 14.0,
+              Spacer(),
+              if (onBookmark != null)
+                IconButton(
+                  icon: Icon(
+                    verse.isBookmarked ? Icons.bookmark : Icons.bookmark_border,
+                    color: verse.isBookmarked ? Colors.blue : Colors.grey,
+                  ),
+                  onPressed: onBookmark,
+                  tooltip:
+                      verse.isBookmarked ? 'Remove bookmark' : 'Add bookmark',
+                ),
+              if (onHighlight != null)
+                IconButton(
+                  icon: Icon(
+                    verse.isHighlighted
+                        ? Icons.color_lens
+                        : Icons.color_lens_outlined,
+                    color: verse.isHighlighted
+                        ? _getHighlightIconColor(
+                            verse.highlightColor ?? 'yellow')
+                        : Colors.grey,
+                  ),
+                  onPressed: onHighlight,
+                  tooltip: verse.isHighlighted
+                      ? 'Remove highlight'
+                      : 'Add highlight',
+                ),
+              if (onShare != null)
+                IconButton(
+                  icon: Icon(Icons.share),
+                  onPressed: onShare,
+                  tooltip: 'Share verse',
+                ),
+            ],
+          ),
+          SizedBox(height: 8),
+          RichText(
+            text: TextSpan(
+              style: TextStyle(
+                fontSize: fontSize,
+                fontFamily: fontFamily,
+                color: Colors.black,
+                fontStyle:
+                    verse.isHighlighted ? FontStyle.italic : FontStyle.normal,
+              ),
+              children: [
+                _buildHighlightedText(verse.text, highlightText),
+              ],
             ),
           ),
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16.0,
-          vertical: 12.0,
-        ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (onBookmark != null)
-              IconButton(
-                icon: Icon(
-                  verse.isBookmarked ? Icons.bookmark : Icons.bookmark_border,
-                  color: verse.isBookmarked ? Colors.blue : Colors.grey,
-                ),
-                onPressed: onBookmark,
-                tooltip:
-                    verse.isBookmarked ? 'Remove bookmark' : 'Add bookmark',
+          SizedBox(height: 8),
+          RichText(
+            text: TextSpan(
+              style: TextStyle(
+                fontSize: fontSize,
+                fontFamily: fontFamily,
+                color: Colors.grey[700],
+                fontStyle: FontStyle.italic,
               ),
-            if (onHighlight != null)
-              IconButton(
-                icon: Icon(
-                  verse.isHighlighted
-                      ? Icons.format_color_fill
-                      : Icons.format_color_text,
-                  color: verse.isHighlighted
-                      ? _getHighlightIconColor(verse.highlightColor)
-                      : Colors.grey,
-                ),
-                onPressed: onHighlight,
-                tooltip: verse.isHighlighted
-                    ? 'Remove highlight'
-                    : 'Highlight verse',
-              ),
-            if (onShare != null)
-              IconButton(
-                icon: const Icon(Icons.share, color: Colors.grey),
-                onPressed: onShare,
-                tooltip: 'Share verse',
-              ),
-          ],
-        ),
-        onTap: () {
-          // Navigate to the reading screen for this verse
-          // You'll need to implement this navigation
-        },
+              children: [
+                _buildHighlightedText(verse.amharicText, highlightText),
+              ],
+            ),
+          ),
+        ],
       ),
     );
-  }
-
-  Color _getHighlightColor(String? colorName) {
-    switch (colorName) {
-      case 'yellow':
-        return Colors.yellow.withOpacity(0.3);
-      case 'blue':
-        return Colors.blue.withOpacity(0.3);
-      case 'green':
-        return Colors.green.withOpacity(0.3);
-      case 'pink':
-        return Colors.pink.withOpacity(0.3);
-      case 'orange':
-        return Colors.orange.withOpacity(0.3);
-      default:
-        return Colors.yellow.withOpacity(0.3); // Default highlight color
-    }
-  }
-
-  Color _getHighlightIconColor(String? colorName) {
-    switch (colorName) {
-      case 'yellow':
-        return Colors.yellow[700]!;
-      case 'blue':
-        return Colors.blue[700]!;
-      case 'green':
-        return Colors.green[700]!;
-      case 'pink':
-        return Colors.pink[700]!;
-      case 'orange':
-        return Colors.orange[700]!;
-      default:
-        return Colors.yellow[700]!; // Default highlight icon color
-    }
-  }
-
-  Widget _buildHighlightedText(String text, String highlight) {
-    final textLower = text.toLowerCase();
-    final highlightLower = highlight.toLowerCase();
-    final List<TextSpan> spans = [];
-    int start = 0;
-    int indexOfHighlight;
-
-    while (
-        (indexOfHighlight = textLower.indexOf(highlightLower, start)) != -1) {
-      // Add non-highlighted text
-      if (indexOfHighlight > start) {
-        spans.add(TextSpan(
-          text: text.substring(start, indexOfHighlight),
-          style: TextStyle(
-            color: Colors.black87,
-            fontSize: 16.0,
-            fontStyle:
-                verse.isHighlighted ? FontStyle.italic : FontStyle.normal,
-          ),
-        ));
-      }
-
-      // Add highlighted text
-      final endIndex = indexOfHighlight + highlight.length;
-      spans.add(TextSpan(
-        text: text.substring(indexOfHighlight, endIndex),
-        style: TextStyle(
-          color: Colors.white,
-          backgroundColor: Colors.blue,
-          fontWeight: FontWeight.bold,
-          fontSize: 16.0,
-          fontStyle: verse.isHighlighted ? FontStyle.italic : FontStyle.normal,
-        ),
-      ));
-
-      start = endIndex;
-    }
-
-    // Add remaining text
-    if (start < text.length) {
-      spans.add(TextSpan(
-        text: text.substring(start),
-        style: TextStyle(
-          color: Colors.black87,
-          fontSize: 16.0,
-          fontStyle: verse.isHighlighted ? FontStyle.italic : FontStyle.normal,
-        ),
-      ));
-    }
-
-    return RichText(text: TextSpan(children: spans));
   }
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
-import '../widgets/navigation_drawer.dart'; // This imports BibleNavigationDrawer
-import 'settings_screen.dart';
+import '../widgets/navigation_drawer.dart';
 
 class Book {
   final int id;
@@ -163,111 +162,102 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Icon(Icons.language, color: Colors.white),
             ),
           ),
-          IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SettingsScreen()),
-              );
+          // Add vertical three dots menu
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              // Handle menu item selection
+              if (value == 'settings') {
+                // Navigate to settings screen
+              } else if (value == 'about') {
+                // Navigate to about screen
+              }
             },
+            itemBuilder: (BuildContext context) => [
+              PopupMenuItem(
+                value: 'settings',
+                child: Text('Settings'),
+              ),
+              PopupMenuItem(
+                value: 'about',
+                child: Text('About'),
+              ),
+            ],
+            icon: Icon(Icons.more_vert, color: Colors.white),
+            offset: Offset(0, 50), // Adjust menu position if needed
           ),
         ],
       ),
-      drawer: BibleNavigationDrawer(), // Updated to use the renamed widget
+      drawer: BibleNavigationDrawer(),
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
           : Column(
               children: [
-                if (_showSearch)
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: _filteredBooks.length,
-                      itemBuilder: (context, index) {
-                        final book = _filteredBooks[index];
-                        return ListTile(
-                          title: Text(
-                            _selectedLanguage == 'English'
-                                ? book.name
-                                : book.amharicName,
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          subtitle: Text('${book.chapters} chapters'),
-                          onTap: () {
-                            // Navigate to book chapters screen
-                            print('Selected book: ${book.name}');
-                          },
-                        );
-                      },
-                    ),
-                  )
-                else
-                  Expanded(
-                    child: SingleChildScrollView(
-                      padding: EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 16),
-                          Text(
-                            'Verse of the Day',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue[700],
-                            ),
-                          ),
-                          SizedBox(height: 16),
-                          Card(
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                              side: BorderSide(color: Colors.blue, width: 1),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(16.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    'For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  SizedBox(height: 16),
-                                  Text(
-                                    'John 3:16',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blue[700],
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 24),
-                          Divider(color: Colors.blue),
-                          SizedBox(height: 24),
-                          Center(
-                            child: Text(
-                              'Tap the menu icon to browse all books of the Bible',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.blue[700],
-                                fontStyle: FontStyle.italic,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ],
+                // Header with testament filter
+                Container(
+                  color: Colors.grey[100],
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Old Testament',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue[700],
+                        ),
                       ),
-                    ),
+                      Text(
+                        'New Testament',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue[700],
+                        ),
+                      ),
+                    ],
                   ),
+                ),
+                // Books list
+                Expanded(
+                  child: ListView.builder(
+                    itemCount:
+                        _showSearch ? _filteredBooks.length : _allBooks.length,
+                    itemBuilder: (context, index) {
+                      final book = _showSearch
+                          ? _filteredBooks[index]
+                          : _allBooks[index];
+                      return ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: book.testament == 'Old'
+                              ? Colors.orange
+                              : Colors.green,
+                          child: Text(
+                            book.abbreviation,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        title: Text(
+                          _selectedLanguage == 'English'
+                              ? book.name
+                              : book.amharicName,
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        subtitle: Text('${book.chapters} chapters'),
+                        trailing: Icon(
+                          Icons.chevron_right,
+                          color: Colors.grey,
+                        ),
+                        onTap: () {
+                          // Navigate to book chapters screen
+                          print('Selected book: ${book.name}');
+                        },
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
     );

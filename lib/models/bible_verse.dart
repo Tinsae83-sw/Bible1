@@ -1,13 +1,13 @@
-// models/bible_verse.dart
 class BibleVerse {
   final int bookId;
   final String bookName;
   final int chapterNumber;
   final int verseNumber;
   final String text;
-  final bool isBookmarked;
-  final bool isHighlighted;
-  final String? highlightColor;
+  final String amharicText;
+  bool isHighlighted;
+  String? highlightColor;
+  bool isBookmarked;
 
   BibleVerse({
     required this.bookId,
@@ -15,21 +15,20 @@ class BibleVerse {
     required this.chapterNumber,
     required this.verseNumber,
     required this.text,
-    this.isBookmarked = false,
+    required this.amharicText,
     this.isHighlighted = false,
     this.highlightColor,
+    this.isBookmarked = false,
   });
 
   factory BibleVerse.fromJson(Map<String, dynamic> json) {
     return BibleVerse(
       bookId: json['bookId'],
-      bookName: json['bookName'],
+      bookName: json['bookName'] ?? '',
       chapterNumber: json['chapterNumber'],
       verseNumber: json['verseNumber'],
       text: json['text'],
-      isBookmarked: json['isBookmarked'] ?? false,
-      isHighlighted: json['isHighlighted'] ?? false,
-      highlightColor: json['highlightColor'],
+      amharicText: json['amharicText'] ?? '',
     );
   }
 
@@ -40,9 +39,10 @@ class BibleVerse {
       'chapterNumber': chapterNumber,
       'verseNumber': verseNumber,
       'text': text,
-      'isBookmarked': isBookmarked,
+      'amharicText': amharicText,
       'isHighlighted': isHighlighted,
       'highlightColor': highlightColor,
+      'isBookmarked': isBookmarked,
     };
   }
 }
