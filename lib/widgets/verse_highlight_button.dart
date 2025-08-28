@@ -1,124 +1,38 @@
-// widgets/verse_highlight_button.dart
 import 'package:flutter/material.dart';
 import '../models/bible_verse.dart';
+import '../services/database_service.dart';
 
 class VerseHighlightButton extends StatefulWidget {
   final BibleVerse verse;
+  final DatabaseService databaseService;
 
-  const VerseHighlightButton({super.key, required this.verse});
+  const VerseHighlightButton({
+    super.key,
+    required this.verse,
+    required this.databaseService,
+  });
 
   @override
   State<VerseHighlightButton> createState() => _VerseHighlightButtonState();
 }
 
 class _VerseHighlightButtonState extends State<VerseHighlightButton> {
-  bool _isHighlighted = false;
-  String? _highlightColor;
-
-  @override
-  void initState() {
-    super.initState();
-    _isHighlighted = widget.verse.isHighlighted;
-    _highlightColor = widget.verse.highlightColor;
-  }
-
-  void _toggleHighlight() {
-    setState(() {
-      _isHighlighted = !_isHighlighted;
-      if (!_isHighlighted) {
-        _highlightColor = null;
-      } else {
-        _highlightColor = 'yellow'; // Default highlight color
-      }
-    });
-
-    // Save highlight state to database
-    // This would typically call a method in DatabaseService
-  }
-
-  void _changeHighlightColor(String color) {
-    setState(() {
-      _highlightColor = color;
-    });
-
-    // Save highlight color to database
-  }
-
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton<String>(
-      itemBuilder: (BuildContext context) => [
-        PopupMenuItem(
-          value: 'yellow',
-          child: Row(
-            children: [
-              Icon(Icons.lens, color: Colors.yellow),
-              const SizedBox(width: 8),
-              const Text('Yellow'),
-            ],
-          ),
-        ),
-        PopupMenuItem(
-          value: 'green',
-          child: Row(
-            children: [
-              Icon(Icons.lens, color: Colors.green),
-              const SizedBox(width: 8),
-              const Text('Green'),
-            ],
-          ),
-        ),
-        PopupMenuItem(
-          value: 'blue',
-          child: Row(
-            children: [
-              Icon(Icons.lens, color: Colors.blue),
-              const SizedBox(width: 8),
-              const Text('Blue'),
-            ],
-          ),
-        ),
-        PopupMenuItem(
-          value: 'pink',
-          child: Row(
-            children: [
-              Icon(Icons.lens, color: Colors.pink),
-              const SizedBox(width: 8),
-              const Text('Pink'),
-            ],
-          ),
-        ),
-        PopupMenuItem(
-          value: 'remove',
-          child: Row(
-            children: [
-              const Icon(Icons.highlight_off),
-              const SizedBox(width: 8),
-              const Text('Remove Highlight'),
-            ],
-          ),
-        ),
-      ],
-      onSelected: (value) {
-        if (value == 'remove') {
-          _toggleHighlight();
-        } else {
-          _changeHighlightColor(value);
-        }
-      },
-      child: IconButton(
-        icon: Icon(
-          _isHighlighted ? Icons.highlight : Icons.highlight_outlined,
-          color: _highlightColor != null
-              ? _getColorFromString(_highlightColor!)
-              : Theme.of(context).colorScheme.onSurface,
-        ),
-        onPressed: _toggleHighlight,
+    return IconButton(
+      icon: Icon(
+        widget.verse.isHighlighted ? Icons.highlight : Icons.highlight_outlined,
+        color: widget.verse.isHighlighted
+            ? _getColorFromString(widget.verse.highlightColor)
+            : null,
       ),
+      onPressed: () {
+        // This will be handled by the parent widget through the onHighlight callback
+      },
     );
   }
 
-  Color _getColorFromString(String colorName) {
+  Color _getColorFromString(String? colorName) {
     switch (colorName) {
       case 'yellow':
         return Colors.yellow;
@@ -128,6 +42,8 @@ class _VerseHighlightButtonState extends State<VerseHighlightButton> {
         return Colors.blue;
       case 'pink':
         return Colors.pink;
+      case 'purple':
+        return Colors.purple;
       default:
         return Colors.yellow;
     }

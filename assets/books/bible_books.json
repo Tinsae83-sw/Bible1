@@ -2,7 +2,7 @@
   "books": [
     {
       "id": 1,
-      "name": "Genesis",
+      "name": "ኦሪት ዘፍጥረት",
       "amharicName": "ዘፍጥረት",
       "testament": "Old",
       "chapters": 50,
@@ -10,7 +10,7 @@
     },
     {
       "id": 2,
-      "name": "Exodus",
+      "name": "ኦሪት ዘጸአት",
       "amharicName": "ዘጸአት",
       "testament": "Old",
       "chapters": 40,
@@ -18,7 +18,7 @@
     },
     {
       "id": 3,
-      "name": "Leviticus",
+      "name": "ኦሪት ዘሌዋውያን",
       "amharicName": "ዘሌዋውያን",
       "testament": "Old",
       "chapters": 27,
@@ -26,7 +26,7 @@
     },
     {
       "id": 4,
-      "name": "Numbers",
+      "name": "ኦሪት ዘኍልቍ",
       "amharicName": "ዘኍልቍ",
       "testament": "Old",
       "chapters": 36,
@@ -34,7 +34,7 @@
     },
     {
       "id": 5,
-      "name": "Deuteronomy",
+      "name": "ኦሪት ዘዳግም",
       "amharicName": "ዘዳግም",
       "testament": "Old",
       "chapters": 34,
@@ -42,7 +42,7 @@
     },
     {
       "id": 6,
-      "name": "Joshua",
+      "name": "መጽሃፈ ኢያሱ ወልደ ነዌ",
       "amharicName": "ኢያሱ ልጅ ነዌ",
       "testament": "Old",
       "chapters": 24,
@@ -50,7 +50,7 @@
     },
     {
       "id": 7,
-      "name": "Judges",
+      "name": "መጽሃፈ መሳፍንት",
       "amharicName": "መርኃልወገን",
       "testament": "Old",
       "chapters": 21,
@@ -58,7 +58,7 @@
     },
     {
       "id": 8,
-      "name": "Ruth",
+      "name": "መጽሃፈ ሩት",
       "amharicName": "ሩት",
       "testament": "Old",
       "chapters": 4,
@@ -66,7 +66,7 @@
     },
     {
       "id": 9,
-      "name": "1 Samuel",
+      "name": "1ኛ ሳሙኤል",
       "amharicName": "1 ሳሙኤል",
       "testament": "Old",
       "chapters": 31,
@@ -74,7 +74,7 @@
     },
     {
       "id": 10,
-      "name": "2 Samuel",
+      "name": "2ኛ ሳሙኤል",
       "amharicName": "2 ሳሙኤል",
       "testament": "Old",
       "chapters": 24,
@@ -82,7 +82,7 @@
     },
     {
       "id": 11,
-      "name": "1 Kings",
+      "name": "1ኛ ነገሥት",
       "amharicName": "1 ነገሥት",
       "testament": "Old",
       "chapters": 22,
@@ -90,7 +90,7 @@
     },
     {
       "id": 12,
-      "name": "2 Kings",
+      "name": "2ኛ ገሥት",
       "amharicName": "2 ነገሥት",
       "testament": "Old",
       "chapters": 25,
@@ -98,7 +98,7 @@
     },
     {
       "id": 13,
-      "name": "1 Chronicles",
+      "name": "1ኛ ዜና መዋዕል",
       "amharicName": "1 ዜና መዋዕል",
       "testament": "Old",
       "chapters": 29,
@@ -106,7 +106,7 @@
     },
     {
       "id": 14,
-      "name": "2 Chronicles",
+      "name": "2ኛ ዜና መዋዕል",
       "amharicName": "2 ዜና መዋዕል",
       "testament": "Old",
       "chapters": 36,
@@ -114,7 +114,7 @@
     },
     {
       "id": 15,
-      "name": "Ezra",
+      "name": "መጽሃፈ ዕዝራ",
       "amharicName": "ዕዝራ",
       "testament": "Old",
       "chapters": 10,
@@ -122,7 +122,7 @@
     },
     {
       "id": 16,
-      "name": "Nehemiah",
+      "name": "መጽሃፈ ነህምያ",
       "amharicName": "ነህምያ",
       "testament": "Old",
       "chapters": 13,
@@ -130,7 +130,7 @@
     },
     {
       "id": 17,
-      "name": "Esther",
+      "name": "መጽሃፈ አስቴር",
       "amharicName": "አስቴር",
       "testament": "Old",
       "chapters": 10,
@@ -138,7 +138,7 @@
     },
     {
       "id": 18,
-      "name": "Job",
+      "name": "መጽሃፈ ኢዮብ",
       "amharicName": "ኢዮብ",
       "testament": "Old",
       "chapters": 42,
@@ -146,7 +146,7 @@
     },
     {
       "id": 19,
-      "name": "Psalms",
+      "name": "መዝሙረ ዳዊት",
       "amharicName": "መዝሙር",
       "testament": "Old",
       "chapters": 150,
@@ -154,7 +154,7 @@
     },
     {
       "id": 20,
-      "name": "Proverbs",
+      "name": "መጽሃፈ �ምሳሌ",
       "amharicName": "ምሳሌ",
       "testament": "Old",
       "chapters": 31,
@@ -162,7 +162,7 @@
     },
     {
       "id": 21,
-      "name": "Ecclesiastes",
+      "name": "መክብብ",
       "amharicName": "መክብብ",
       "testament": "Old",
       "chapters": 12,
@@ -170,7 +170,7 @@
     },
     {
       "id": 22,
-      "name": "Song of Solomon",
+      "name": "መሃልየ መሃልየ ዘሰለሞን",
       "amharicName": "ግጥም ሰሎሞን",
       "testament": "Old",
       "chapters": 8,
@@ -178,7 +178,7 @@
     },
     {
       "id": 23,
-      "name": "Isaiah",
+      "name": "ትንቢተ ኢሳይያስ",
       "amharicName": "ኢሳይያስ",
       "testament": "Old",
       "chapters": 66,
@@ -186,7 +186,7 @@
     },
     {
       "id": 24,
-      "name": "Jeremiah",
+      "name": "ትንቢተ ኤርምያስ",
       "amharicName": "ኤርምያስ",
       "testament": "Old",
       "chapters": 52,
@@ -194,7 +194,7 @@
     },
     {
       "id": 25,
-      "name": "Lamentations",
+      "name": "ሰቆቃው ኤርሚያስ",
       "amharicName": "ግርግማን",
       "testament": "Old",
       "chapters": 5,
@@ -202,7 +202,7 @@
     },
     {
       "id": 26,
-      "name": "Ezekiel",
+      "name": "ትንቢተ ሕዝቅኤል",
       "amharicName": "ሕዝቅኤል",
       "testament": "Old",
       "chapters": 48,
@@ -210,7 +210,7 @@
     },
     {
       "id": 27,
-      "name": "Daniel",
+      "name": "ትንቢተ ዳንኤል",
       "amharicName": "ዳንኤል",
       "testament": "Old",
       "chapters": 12,
@@ -218,7 +218,7 @@
     },
     {
       "id": 28,
-      "name": "Hosea",
+      "name": "ትንቢተ ሆሴዕ",
       "amharicName": "ሆሴዕ",
       "testament": "Old",
       "chapters": 14,
@@ -226,7 +226,7 @@
     },
     {
       "id": 29,
-      "name": "Joel",
+      "name": "ትንቢተ ኢዮኤል",
       "amharicName": "ኢዮኤል",
       "testament": "Old",
       "chapters": 3,
@@ -234,7 +234,7 @@
     },
     {
       "id": 30,
-      "name": "Amos",
+      "name": "ትንቢተ አሞጽ",
       "amharicName": "አሞጽ",
       "testament": "Old",
       "chapters": 9,
@@ -242,7 +242,7 @@
     },
     {
       "id": 31,
-      "name": "Obadiah",
+      "name": "ትንቢተ አብድዩ",
       "amharicName": "አብድያ",
       "testament": "Old",
       "chapters": 1,
@@ -250,7 +250,7 @@
     },
     {
       "id": 32,
-      "name": "Jonah",
+      "name": "ትንቢተ ዮናስ",
       "amharicName": "ዮናስ",
       "testament": "Old",
       "chapters": 4,
@@ -258,7 +258,7 @@
     },
     {
       "id": 33,
-      "name": "Micah",
+      "name": "ትንቢተ ሚክያስ",
       "amharicName": "ሚክያስ",
       "testament": "Old",
       "chapters": 7,
@@ -266,7 +266,7 @@
     },
     {
       "id": 34,
-      "name": "Nahum",
+      "name": "ትንቢተ ናሆም",
       "amharicName": "ናሆም",
       "testament": "Old",
       "chapters": 3,
@@ -274,7 +274,7 @@
     },
     {
       "id": 35,
-      "name": "Habakkuk",
+      "name": "ትንቢተ እንባቆም",
       "amharicName": "አብቁም",
       "testament": "Old",
       "chapters": 3,
@@ -282,7 +282,7 @@
     },
     {
       "id": 36,
-      "name": "Zephaniah",
+      "name": "ትንቢተ ሶፎንያስ",
       "amharicName": "ሶፎንያስ",
       "testament": "Old",
       "chapters": 3,
@@ -290,7 +290,7 @@
     },
     {
       "id": 37,
-      "name": "Haggai",
+      "name": "ትንቢተ �ሐጌ",
       "amharicName": "ሐጌ",
       "testament": "Old",
       "chapters": 2,
@@ -298,7 +298,7 @@
     },
     {
       "id": 38,
-      "name": "Zechariah",
+      "name": "ትንቢተ ዘካርያስ",
       "amharicName": "ዘካርያስ",
       "testament": "Old",
       "chapters": 14,
@@ -306,7 +306,7 @@
     },
     {
       "id": 39,
-      "name": "Malachi",
+      "name": "ትንቢተ ሚልክያ",
       "amharicName": "ሚልክያ",
       "testament": "Old",
       "chapters": 4,
@@ -314,7 +314,7 @@
     },
     {
       "id": 40,
-      "name": "Matthew",
+      "name": "የማቴዎስ ወንጌል",
       "amharicName": "ማቴዎስ",
       "testament": "New",
       "chapters": 28,
@@ -322,7 +322,7 @@
     },
     {
       "id": 41,
-      "name": "Mark",
+      "name": "የማርቆስ ወንጌል",
       "amharicName": "ማርቆስ",
       "testament": "New",
       "chapters": 16,
@@ -330,7 +330,7 @@
     },
     {
       "id": 42,
-      "name": "Luke",
+      "name": "የየቃስ ወንጌል",
       "amharicName": "ሉቃስ",
       "testament": "New",
       "chapters": 24,
@@ -338,7 +338,7 @@
     },
     {
       "id": 43,
-      "name": "John",
+      "name": "የዮሐንስ ወንጌል",
       "amharicName": "ዮሐንስ",
       "testament": "New",
       "chapters": 21,
@@ -346,7 +346,7 @@
     },
     {
       "id": 44,
-      "name": "Acts",
+      "name": "የየራ ሐዋርያት",
       "amharicName": "ሥራ ሐዋርያት",
       "testament": "New",
       "chapters": 28,
@@ -354,7 +354,7 @@
     },
     {
       "id": 45,
-      "name": "Romans",
+      "name": "ወደ ሮሜ ሰዎች",
       "amharicName": "ሮሜ",
       "testament": "New",
       "chapters": 16,
@@ -362,7 +362,7 @@
     },
     {
       "id": 46,
-      "name": "1 Corinthians",
+      "name": "1ኛ ቆሮንቶስ ሰዎች",
       "amharicName": "1 ቆሮንቶስ",
       "testament": "New",
       "chapters": 16,
@@ -370,7 +370,7 @@
     },
     {
       "id": 47,
-      "name": "2 Corinthians",
+      "name": "2ኛ ቆሮንቶስ ሰዎች",
       "amharicName": "2 ቆሮንቶስ",
       "testament": "New",
       "chapters": 13,
@@ -378,7 +378,7 @@
     },
     {
       "id": 48,
-      "name": "Galatians",
+      "name": "ወደ ገላትያ ሰዎች",
       "amharicName": "ገላትያ",
       "testament": "New",
       "chapters": 6,
@@ -386,7 +386,7 @@
     },
     {
       "id": 49,
-      "name": "Ephesians",
+      "name": "ወደ ኤፌሶን ሰዎች",
       "amharicName": "ኤፌሶን",
       "testament": "New",
       "chapters": 6,
@@ -394,7 +394,7 @@
     },
     {
       "id": 50,
-      "name": "Philippians",
+      "name": "ወደ ፊልጵስዩስ ሰዎች",
       "amharicName": "ፊልጵስዩስ",
       "testament": "New",
       "chapters": 4,
@@ -402,7 +402,7 @@
     },
     {
       "id": 51,
-      "name": "Colossians",
+      "name": "ወደ ቈላስዩስ ሰዎች",
       "amharicName": "ቈላስዩስ",
       "testament": "New",
       "chapters": 4,
@@ -410,7 +410,7 @@
     },
     {
       "id": 52,
-      "name": "1 Thessalonians",
+      "name": "1ኛ ወደ ሰሎንቄ",
       "amharicName": "1 ሰሎንቄ",
       "testament": "New",
       "chapters": 5,
@@ -418,7 +418,7 @@
     },
     {
       "id": 53,
-      "name": "2 Thessalonians",
+      "name": "2ኛ ወደ ሰሎንቄ",
       "amharicName": "2 ሰሎንቄ",
       "testament": "New",
       "chapters": 3,
@@ -426,7 +426,7 @@
     },
     {
       "id": 54,
-      "name": "1 Timothy",
+      "name": "1ኛ ወደ ጢሞቴዎስ",
       "amharicName": "1 ጢሞቴዎስ",
       "testament": "New",
       "chapters": 6,
@@ -434,7 +434,7 @@
     },
     {
       "id": 55,
-      "name": "2 Timothy",
+      "name": "2ኛ ወደ ጢሞቴዎስ",
       "amharicName": "2 ጢሞቴዎስ",
       "testament": "New",
       "chapters": 4,
@@ -442,7 +442,7 @@
     },
     {
       "id": 56,
-      "name": "Titus",
+      "name": "ወደ ቲቶ",
       "amharicName": "ቲቶ",
       "testament": "New",
       "chapters": 3,
@@ -450,7 +450,7 @@
     },
     {
       "id": 57,
-      "name": "Philemon",
+      "name": "ወደ ፊልሞና",
       "amharicName": "ፊልሞና",
       "testament": "New",
       "chapters": 1,
@@ -458,7 +458,7 @@
     },
     {
       "id": 58,
-      "name": "Hebrews",
+      "name": "ወደ ዕብራውያን",
       "amharicName": "ዕብራውያን",
       "testament": "New",
       "chapters": 13,
@@ -466,7 +466,7 @@
     },
     {
       "id": 59,
-      "name": "James",
+      "name": "ያዕቆብ መልክት",
       "amharicName": "ያዕቆብ",
       "testament": "New",
       "chapters": 5,
@@ -474,7 +474,7 @@
     },
     {
       "id": 60,
-      "name": "1 Peter",
+      "name": "1ኛ ጴጥሮስ መልክት",
       "amharicName": "1 ጴጥሮስ",
       "testament": "New",
       "chapters": 5,
@@ -482,7 +482,7 @@
     },
     {
       "id": 61,
-      "name": "2 Peter",
+      "name": "2ኛ ጴጥሮስ መልክት",
       "amharicName": "2 ጴጥሮስ",
       "testament": "New",
       "chapters": 3,
@@ -490,7 +490,7 @@
     },
     {
       "id": 62,
-      "name": "1 John",
+      "name": "1ኛ ዮሐንስ መልክት",
       "amharicName": "1 ዮሐንስ",
       "testament": "New",
       "chapters": 5,
@@ -498,7 +498,7 @@
     },
     {
       "id": 63,
-      "name": "2 John",
+      "name": "2ኛ ዮሐንስ መልክት",
       "amharicName": "2 ዮሐንስ",
       "testament": "New",
       "chapters": 1,
@@ -506,7 +506,7 @@
     },
     {
       "id": 64,
-      "name": "3 John",
+      "name": "3ኛ ዮሐንስ መልክት",
       "amharicName": "3 ዮሐንስ",
       "testament": "New",
       "chapters": 1,
@@ -514,15 +514,15 @@
     },
     {
       "id": 65,
-      "name": "Jude",
-      "amharicName": "ይሁዳ",
+      "name": "የይሁዳ መልክት",
+      "amharicName": "ራእይ",
       "testament": "New",
       "chapters": 1,
       "abbreviation": "Jude"
     },
     {
       "id": 66,
-      "name": "Revelation",
+      "name": "ዮሐንስ ራእይ",
       "amharicName": "ራእይ",
       "testament": "New",
       "chapters": 22,

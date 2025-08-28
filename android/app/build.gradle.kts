@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.example.flutter_application_1"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973" // ← FIXED: Use the NDK version required by shared_preferences
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

@@ -1,14 +1,11 @@
-// screens/search_screen.dart
 import 'package:flutter/material.dart';
 import '../services/bible_service.dart';
 import '../models/bible_verse.dart';
-import '../widgets/bible_verse_tile.dart';
+import '../widgets/bible_verse_title.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
-
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  _SearchScreenState createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
@@ -17,7 +14,7 @@ class _SearchScreenState extends State<SearchScreen> {
   List<BibleVerse> _searchResults = [];
   bool _isSearching = false;
 
-  void _performSearch(String query) async {
+  void _searchVerses(String query) async {
     if (query.isEmpty) {
       setState(() {
         _searchResults = [];
@@ -30,19 +27,28 @@ class _SearchScreenState extends State<SearchScreen> {
       _isSearching = true;
     });
 
-    final results = await _bibleService.searchVerses(query);
-    setState(() {
-      _searchResults = results;
-      _isSearching = false;
-    });
+    try {
+      final results = await _bibleService.searchVerses(query);
+      setState(() {
+        _searchResults = results;
+        _isSearching = false;
+      });
+    } catch (e) {
+      setState(() {
+        _isSearching = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('የፍለጋ ስህተት: $e')),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search Bible'),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: Text('ፍለጋ'),
+        backgroundColor: Colors.blue[800],
         foregroundColor: Colors.white,
       ),
       body: Column(
@@ -52,61 +58,49 @@ class _SearchScreenState extends State<SearchScreen> {
             child: TextField(
               controller: _searchController,
               decoration: InputDecoration(
-                hintText: 'Search for verses...',
-                prefixIcon: const Icon(Icons.search),
+                hintText: 'መጽሐፍ ቅዱስ ፍለጋ...',
                 suffixIcon: IconButton(
-                  icon: const Icon(Icons.clear),
-                  onPressed: () {
-                    _searchController.clear();
-                    setState(() {
-                      _searchResults = [];
-                    });
-                  },
+                  icon: Icon(Icons.search),
+                  onPressed: () => _searchVerses(_searchController.text),
                 ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
+                border: OutlineInputBorder(),
               ),
-              onSubmitted: _performSearch,
+              onSubmitted: _searchVerses,
             ),
           ),
           _isSearching
-              ? const Center(child: CircularProgressIndicator())
+              ? Center(child: CircularProgressIndicator())
               : Expanded(
                   child: _searchResults.isEmpty
                       ? Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(
-                                Icons.search,
-                                size: 64,
-                                color: Colors.grey,
-                              ),
-                              const SizedBox(height: 16),
-                              Text(
-                                _searchController.text.isEmpty
-                                    ? 'Enter a search term to find verses'
-                                    : 'No results found for "${_searchController.text}"',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
+                          child: Text(
+                            _searchController.text.isEmpty
+                                ? 'ፍለጋ የሚፈልጉትን ጥቅስ ይፃፉ'
+                                : 'ምንም ውጤት አልተገኘም',
+                            style: TextStyle(fontSize: 18),
                           ),
                         )
                       : ListView.builder(
                           itemCount: _searchResults.length,
                           itemBuilder: (context, index) {
                             final verse = _searchResults[index];
-                            return BibleVerseTile(verse: verse);
+                            return BibleVerseTile(
+                              verse: verse,
+                              highlightText: _searchController.text,
+                              fontFamily: 'AbyssinicaSIL',
+                              fontSize: 16.0,
+                            );
                           },
                         ),
                 ),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 }

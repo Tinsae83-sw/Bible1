@@ -3,33 +3,37 @@ import 'package:flutter/services.dart';
 import 'dart:convert';
 import '../widgets/navigation_drawer.dart';
 
-class Book {
-  final int id;
-  final String name;
-  final String amharicName;
-  final String testament;
-  final int chapters;
-  final String abbreviation;
+class Verse {
+  final int verse;
+  final String text;
 
-  Book({
-    required this.id,
-    required this.name,
-    required this.amharicName,
-    required this.testament,
-    required this.chapters,
-    required this.abbreviation,
-  });
+  Verse({required this.verse, required this.text});
 
-  factory Book.fromJson(Map<String, dynamic> json) {
-    return Book(
-      id: json['id'],
-      name: json['name'],
-      amharicName: json['amharicName'],
-      testament: json['testament'],
-      chapters: json['chapters'],
-      abbreviation: json['abbreviation'],
+  factory Verse.fromJson(int verseNumber, String text) {
+    return Verse(
+      verse: verseNumber,
+      text: text,
     );
   }
+}
+
+class Chapter {
+  final int chapter;
+  final List<Verse> verses;
+
+  Chapter({required this.chapter, required this.verses});
+}
+
+class BookContent {
+  final int bookId;
+  final String bookName;
+  final List<Chapter> chapters;
+
+  BookContent({
+    required this.bookId,
+    required this.bookName,
+    required this.chapters,
+  });
 }
 
 class HomeScreen extends StatefulWidget {
@@ -38,68 +42,81 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Book> _allBooks = [];
-  List<Book> _filteredBooks = [];
   final TextEditingController _searchController = TextEditingController();
   bool _isLoading = true;
   bool _showSearch = false;
   String _selectedLanguage = 'English';
+  BookContent? _genesisContent;
+  int _currentChapter = 1;
+  String _errorMessage = '';
 
   @override
   void initState() {
     super.initState();
-    _loadBooks();
-    _searchController.addListener(_filterBooks);
+    _loadGenesis();
   }
 
-  Future<void> _loadBooks() async {
+  Future<void> _loadGenesis() async {
     try {
       final String jsonString =
-          await rootBundle.loadString('assets/bible_books.json');
+          await rootBundle.loadString('assets/bible_data/genesis.json');
       final Map<String, dynamic> jsonData = json.decode(jsonString);
-      List<dynamic> booksJson = jsonData['books'];
+
+      // Parse the JSON with the correct structure
+      final genesisData = jsonData['genesis'];
+      List<Chapter> chapters = [];
+
+      genesisData.forEach((chapterKey, versesData) {
+        // Extract chapter number from key (e.g., "Chapter 1" -> 1)
+        final chapterNumber = int.parse(chapterKey.split(' ')[1]);
+
+        List<Verse> verses = [];
+        (versesData as Map<String, dynamic>).forEach((verseNumber, text) {
+          verses.add(Verse.fromJson(int.parse(verseNumber), text));
+        });
+
+        // Sort verses by verse number
+        verses.sort((a, b) => a.verse.compareTo(b.verse));
+
+        chapters.add(Chapter(chapter: chapterNumber, verses: verses));
+      });
+
+      // Sort chapters by chapter number
+      chapters.sort((a, b) => a.chapter.compareTo(b.chapter));
 
       setState(() {
-        _allBooks = booksJson.map((json) => Book.fromJson(json)).toList();
-        _filteredBooks = _allBooks;
+        _genesisContent = BookContent(
+          bookId: 1,
+          bookName: 'Genesis',
+          chapters: chapters,
+        );
         _isLoading = false;
+        _errorMessage = '';
       });
     } catch (e) {
-      print('Error loading books: $e');
+      print('Error loading Genesis: $e');
       setState(() {
         _isLoading = false;
+        _errorMessage = 'Failed to load Genesis: $e';
       });
     }
-  }
-
-  void _filterBooks() {
-    final query = _searchController.text.toLowerCase();
-    setState(() {
-      if (query.isEmpty) {
-        _filteredBooks = _allBooks;
-      } else {
-        _filteredBooks = _allBooks
-            .where((book) =>
-                book.name.toLowerCase().contains(query) ||
-                book.amharicName.toLowerCase().contains(query))
-            .toList();
-      }
-    });
   }
 
   void _toggleSearch() {
     setState(() {
       _showSearch = !_showSearch;
-      if (!_showSearch) {
-        _searchController.clear();
-        _filteredBooks = _allBooks;
-      }
     });
   }
 
   void _changeLanguage(String language) {
     setState(() {
       _selectedLanguage = language;
+    });
+  }
+
+  void _changeChapter(int chapter) {
+    setState(() {
+      _currentChapter = chapter;
     });
   }
 
@@ -118,13 +135,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 controller: _searchController,
                 autofocus: true,
                 decoration: InputDecoration(
-                  hintText: 'Search books...',
+                  hintText: 'Search verses...',
                   border: InputBorder.none,
                   hintStyle: TextStyle(color: Colors.white70),
                 ),
                 style: TextStyle(color: Colors.white),
               )
-            : Text('Holy Bible'),
+            : Text('Genesis'),
         backgroundColor: Colors.blue[700],
         foregroundColor: Colors.white,
         leading: Builder(
@@ -139,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(
               icon: Icon(Icons.search),
               onPressed: _toggleSearch,
-              tooltip: 'Search books',
+              tooltip: 'Search verses',
             ),
           if (_showSearch)
             IconButton(
@@ -162,14 +179,16 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Icon(Icons.language, color: Colors.white),
             ),
           ),
-          // Add vertical three dots menu
+          // Added the new PopupMenuButton for Settings and About
           PopupMenuButton<String>(
             onSelected: (value) {
               // Handle menu item selection
               if (value == 'settings') {
                 // Navigate to settings screen
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
               } else if (value == 'about') {
                 // Navigate to about screen
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => AboutScreen()));
               }
             },
             itemBuilder: (BuildContext context) => [
@@ -190,76 +209,91 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: BibleNavigationDrawer(),
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
-          : Column(
-              children: [
-                // Header with testament filter
-                Container(
-                  color: Colors.grey[100],
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Old Testament',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue[700],
+          : _genesisContent == null || _genesisContent!.chapters.isEmpty
+              ? Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          _errorMessage.isNotEmpty
+                              ? _errorMessage
+                              : 'Failed to load Genesis content',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 16, color: Colors.red),
                         ),
-                      ),
-                      Text(
-                        'New Testament',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue[700],
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: _loadGenesis,
+                          child: Text('Retry'),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                // Books list
-                Expanded(
-                  child: ListView.builder(
-                    itemCount:
-                        _showSearch ? _filteredBooks.length : _allBooks.length,
-                    itemBuilder: (context, index) {
-                      final book = _showSearch
-                          ? _filteredBooks[index]
-                          : _allBooks[index];
-                      return ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: book.testament == 'Old'
-                              ? Colors.orange
-                              : Colors.green,
-                          child: Text(
-                            book.abbreviation,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
+                )
+              : Column(
+                  children: [
+                    // Chapter selector
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      color: Colors.grey[100],
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.arrow_back),
+                            onPressed: _currentChapter > 1
+                                ? () => _changeChapter(_currentChapter - 1)
+                                : null,
                           ),
-                        ),
-                        title: Text(
-                          _selectedLanguage == 'English'
-                              ? book.name
-                              : book.amharicName,
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        subtitle: Text('${book.chapters} chapters'),
-                        trailing: Icon(
-                          Icons.chevron_right,
-                          color: Colors.grey,
-                        ),
-                        onTap: () {
-                          // Navigate to book chapters screen
-                          print('Selected book: ${book.name}');
+                          Text('Chapter $_currentChapter'),
+                          IconButton(
+                            icon: Icon(Icons.arrow_forward),
+                            onPressed: _currentChapter <
+                                    _genesisContent!.chapters.length
+                                ? () => _changeChapter(_currentChapter + 1)
+                                : null,
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Bible text
+                    Expanded(
+                      child: ListView.builder(
+                        padding: EdgeInsets.all(16),
+                        itemCount: _genesisContent!
+                            .chapters[_currentChapter - 1].verses.length,
+                        itemBuilder: (context, index) {
+                          final verse = _genesisContent!
+                              .chapters[_currentChapter - 1].verses[index];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4.0),
+                            child: RichText(
+                              text: TextSpan(
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                  height: 1.5,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: '${verse.verse} ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue[700],
+                                    ),
+                                  ),
+                                  TextSpan(text: verse.text),
+                                ],
+                              ),
+                            ),
+                          );
                         },
-                      );
-                    },
-                  ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
     );
   }
 }

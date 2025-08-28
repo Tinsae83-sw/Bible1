@@ -1,4 +1,3 @@
-// services/bible_service.dart
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -13,75 +12,76 @@ class BibleService {
   BibleService._internal();
 
   List<BibleBook>? _books;
+  Map<int, List<BibleVerse>>? _allVersesCache; // Cache for all verses
 
-  // Map to convert book names to file names
-  final Map<String, String> _bookFileMap = {
-    'Genesis': 'genesis',
-    'Exodus': 'exodus',
-    'Leviticus': 'leviticus',
-    'Numbers': 'numbers',
-    'Deuteronomy': 'deuteronomy',
-    'Joshua': 'joshua',
-    'Judges': 'judges',
-    'Ruth': 'ruth',
-    '1 Samuel': '1samuel',
-    '2 Samuel': '2samuel',
-    '1 Kings': '1kings',
-    '2 Kings': '2kings',
-    '1 Chronicles': '1chronicles',
-    '2 Chronicles': '2chronicles',
-    'Ezra': 'ezra',
-    'Nehemiah': 'nehemiah',
-    'Esther': 'esther',
-    'Job': 'job',
-    'Psalms': 'psalms',
-    'Proverbs': 'proverbs',
-    'Ecclesiastes': 'ecclesiastes',
-    'Song of Solomon': 'songofsolomon',
-    'Isaiah': 'isaiah',
-    'Jeremiah': 'jeremiah',
-    'Lamentations': 'lamentations',
-    'Ezekiel': 'ezekiel',
-    'Daniel': 'daniel',
-    'Hosea': 'hosea',
-    'Joel': 'joel',
-    'Amos': 'amos',
-    'Obadiah': 'obadiah',
-    'Jonah': 'jonah',
-    'Micah': 'micah',
-    'Nahum': 'nahum',
-    'Habakkuk': 'habakkuk',
-    'Zephaniah': 'zephaniah',
-    'Haggai': 'haggai',
-    'Zechariah': 'zechariah',
-    'Malachi': 'malachi',
-    'Matthew': 'matthew',
-    'Mark': 'mark',
-    'Luke': 'luke',
-    'John': 'john',
-    'Acts': 'acts',
-    'Romans': 'romans',
-    '1 Corinthians': '1corinthians',
-    '2 Corinthians': '2corinthians',
-    'Galatians': 'galatians',
-    'Ephesians': 'ephesians',
-    'Philippians': 'philippians',
-    'Colossians': 'colossians',
-    '1 Thessalonians': '1thessalonians',
-    '2 Thessalonians': '2thessalonians',
-    '1 Timothy': '1timothy',
-    '2 Timothy': '2timothy',
-    'Titus': 'titus',
-    'Philemon': 'philemon',
-    'Hebrews': 'hebrews',
-    'James': 'james',
-    '1 Peter': '1peter',
-    '2 Peter': '2peter',
-    '1 John': '1john',
-    '2 John': '2john',
-    '3 John': '3john',
-    'Jude': 'jude',
-    'Revelation': 'revelation',
+  // Map book IDs to English file names
+  final Map<int, String> _bookIdFileMap = {
+    1: 'genesis',
+    2: 'exodus',
+    3: 'leviticus',
+    4: 'numbers',
+    5: 'deuteronomy',
+    6: 'joshua',
+    7: 'judges',
+    8: 'ruth',
+    9: '1samuel',
+    10: '2samuel',
+    11: '1kings',
+    12: '2kings',
+    13: '1chronicles',
+    14: '2chronicles',
+    15: 'ezra',
+    16: 'nehemiah',
+    17: 'esther',
+    18: 'job',
+    19: 'psalms',
+    20: 'proverbs',
+    21: 'ecclesiastes',
+    22: 'songofsolomon',
+    23: 'isaiah',
+    24: 'jeremiah',
+    25: 'lamentations',
+    26: 'ezekiel',
+    27: 'daniel',
+    28: 'hosea',
+    29: 'joel',
+    30: 'amos',
+    31: 'obadiah',
+    32: 'jonah',
+    33: 'micah',
+    34: 'nahum',
+    35: 'habakkuk',
+    36: 'zephaniah',
+    37: 'haggai',
+    38: 'zechariah',
+    39: 'malachi',
+    40: 'matthew',
+    41: 'mark',
+    42: 'luke',
+    43: 'john',
+    44: 'acts',
+    45: 'romans',
+    46: '1corinthians',
+    47: '2corinthians',
+    48: 'galatians',
+    49: 'ephesians',
+    50: 'philippians',
+    51: 'colossians',
+    52: '1thessalonians',
+    53: '2thessalonians',
+    54: '1timothy',
+    55: '2timothy',
+    56: 'titus',
+    57: 'philemon',
+    58: 'hebrews',
+    59: 'james',
+    60: '1peter',
+    61: '2peter',
+    62: '1john',
+    63: '2john',
+    64: '3john',
+    65: 'jude',
+    66: 'revelation',
   };
 
   Future<List<BibleBook>> getBooks() async {
@@ -91,11 +91,11 @@ class BibleService {
       String jsonString;
 
       if (kIsWeb) {
-        // For web, use HTTP to load the asset
+        // For web, use HTTP to load the asset with proper UTF-8 decoding
         final response =
             await http.get(Uri.parse('assets/books/bible_books.json'));
         if (response.statusCode == 200) {
-          jsonString = response.body;
+          jsonString = utf8.decode(response.bodyBytes); // Ensure UTF-8 decoding
         } else {
           print('Failed to load books from web: ${response.statusCode}');
           throw Exception('Failed to load books JSON: ${response.statusCode}');
@@ -118,27 +118,35 @@ class BibleService {
       _books = [
         BibleBook(
           id: 1,
-          name: "Genesis",
-          amharicName: "ኦሪት ዘፍጥረት",
+          name: "ኦሪት ዘፍጥረት",
+          amharicName: "ዘፍጥረት",
           testament: "Old",
           chapters: 50,
           abbreviation: "Gen",
         ),
         BibleBook(
           id: 2,
-          name: "Exodus",
-          amharicName: "ኦሪት ዘጸአት",
+          name: "ኦሪት ዘጸአት",
+          amharicName: "ዘጸአት",
           testament: "Old",
           chapters: 40,
           abbreviation: "Exo",
         ),
         BibleBook(
           id: 40,
-          name: "Matthew",
-          amharicName: "የማቴዎስ ወንጌል",
+          name: "የማቴዎስ ወንጌል",
+          amharicName: "ማቴዎስ",
           testament: "New",
           chapters: 28,
           abbreviation: "Mat",
+        ),
+        BibleBook(
+          id: 44,
+          name: "የየራ ሐዋርያት",
+          amharicName: "ሥራ ሐዋርያት",
+          testament: "New",
+          chapters: 28,
+          abbreviation: "Act",
         ),
       ];
       return _books!;
@@ -154,33 +162,42 @@ class BibleService {
     try {
       final book = await getBookById(bookId);
 
-      // Get the file name from the mapping
-      final String fileName =
-          _bookFileMap[book.name] ?? book.name.toLowerCase();
+      // Get the English file name from the ID-based mapping
+      final String? englishFileName = _bookIdFileMap[bookId];
+
+      if (englishFileName == null) {
+        print('No English filename mapping found for book ID: $bookId');
+        return _getSampleChapter(bookId, chapterNumber, book.name);
+      }
+
       String jsonString;
 
       if (kIsWeb) {
-        // For web, use HTTP to load the asset
-        final response =
-            await http.get(Uri.parse('assets/bible_data/$fileName.json'));
+        // For web, use the English file name from the map
+        final response = await http.get(
+          Uri.parse('assets/bible_data/$englishFileName.json'),
+        );
+
         if (response.statusCode == 200) {
-          jsonString = response.body;
+          jsonString = utf8.decode(response.bodyBytes);
         } else {
           print('Failed to load chapter from web: ${response.statusCode}');
+          print('Requested URL: assets/bible_data/$englishFileName.json');
           return _getSampleChapter(bookId, chapterNumber, book.name);
         }
       } else {
-        // For mobile, use rootBundle
-        jsonString =
-            await rootBundle.loadString('assets/bible_data/$fileName.json');
+        // For mobile, use rootBundle with English filename
+        jsonString = await rootBundle
+            .loadString('assets/bible_data/$englishFileName.json');
       }
 
       final Map<String, dynamic> jsonData = json.decode(jsonString);
 
-      // Get the book data from the JSON (e.g., "exodus")
-      final String bookKey = fileName.toLowerCase();
+      // Get the book data from the JSON (use the English file name as key)
+      final String bookKey = englishFileName.toLowerCase();
       if (!jsonData.containsKey(bookKey)) {
         print('JSON does not contain key: $bookKey');
+        print('Available keys: ${jsonData.keys.join(', ')}');
         return _getSampleChapter(bookId, chapterNumber, book.name);
       }
 
@@ -189,6 +206,7 @@ class BibleService {
 
       if (!bookData.containsKey(chapterKey)) {
         print('Chapter $chapterNumber not found in book $bookKey');
+        print('Available chapters: ${bookData.keys.join(', ')}');
         return _getSampleChapter(bookId, chapterNumber, book.name);
       }
 
@@ -205,7 +223,7 @@ class BibleService {
             chapterNumber: chapterNumber,
             verseNumber: verseNumber,
             text: verseText.toString(),
-            amharicText: verseText.toString(), // Using same text for now
+            amharicText: verseText.toString(),
             isBookmarked: false,
             isHighlighted: false,
             highlightColor: null,
@@ -254,25 +272,46 @@ class BibleService {
     );
   }
 
-  Future<List<BibleVerse>> searchVerses(String query) async {
-    final books = await getBooks();
-    List<BibleVerse> results = [];
+  // NEW: Load all verses from all books for comprehensive search
+  Future<void> _loadAllVerses() async {
+    if (_allVersesCache != null) return;
 
-    // Limit search to first 3 chapters of each book for performance
+    _allVersesCache = {};
+    final books = await getBooks();
+
     for (var book in books) {
-      for (int chapter = 1; chapter <= 3; chapter++) {
-        try {
+      try {
+        _allVersesCache![book.id] = [];
+        for (int chapter = 1; chapter <= book.chapters; chapter++) {
           final bibleChapter = await getChapter(book.id, chapter);
-          for (var verse in bibleChapter.verses) {
-            if (verse.text.toLowerCase().contains(query.toLowerCase())) {
-              results.add(verse);
-            }
-          }
-        } catch (e) {
-          continue;
+          _allVersesCache![book.id]!.addAll(bibleChapter.verses);
         }
+      } catch (e) {
+        print('Error loading verses for ${book.name}: $e');
       }
     }
+  }
+
+  // UPDATED: Search across all verses in all books
+  Future<List<BibleVerse>> searchVerses(String query) async {
+    if (query.isEmpty) return [];
+
+    // Load all verses if not already loaded
+    if (_allVersesCache == null) {
+      await _loadAllVerses();
+    }
+
+    List<BibleVerse> results = [];
+    final lowercaseQuery = query.toLowerCase();
+
+    _allVersesCache!.forEach((bookId, verses) {
+      for (var verse in verses) {
+        if (verse.text.toLowerCase().contains(lowercaseQuery) ||
+            verse.amharicText.toLowerCase().contains(lowercaseQuery)) {
+          results.add(verse);
+        }
+      }
+    });
 
     return results;
   }

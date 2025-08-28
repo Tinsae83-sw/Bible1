@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:holy_bible/models/bible_book.dart';
 import 'package:holy_bible/screens/chapter_selection_screen.dart';
+import 'package:holy_bible/screens/search_screen.dart';
 import 'package:holy_bible/services/bible_service.dart';
 
 class BookSelectionScreen extends StatefulWidget {
@@ -40,13 +41,24 @@ class _BookSelectionScreenState extends State<BookSelectionScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Select Book"),
+          title: Text("መጽሐፍ ቅዱስ ምረጥ"),
           bottom: TabBar(
             tabs: [
-              Tab(text: "Old Testament"),
-              Tab(text: "New Testament"),
+              Tab(text: "የጥንት ኪዳን"),
+              Tab(text: "አዲስ ኪዳን"),
             ],
           ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SearchScreen()),
+                );
+              },
+            ),
+          ],
         ),
         body: _isLoading
             ? Center(child: CircularProgressIndicator())
@@ -73,7 +85,8 @@ class _BookSelectionScreenState extends State<BookSelectionScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ChapterSelectionScreen(book: book),
+                builder: (context) =>
+                    ChapterSelectionScreen(initialBook: book), // Fixed here
               ),
             );
           },
